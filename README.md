@@ -22,6 +22,32 @@ samples, guidance on mobile development, and a full API reference.
 Widget tree adalah struktur hierarki yang menggambarkan susunan widget dalam aplikasi. Di dalam tree, satu widget bisa menjadi pareng yg menampung widget lain, widget yg ditampung disebut child. Hubungan parent-child menentukan tata letak antar widget. Parent bisa mengatur posisi atau ukuran child, tapi child tidak bisa mengubah parentnya.
 
 ### 2. Sebutkan semua widget yang kamu gunakan dalam proyek ini dan jelaskan fungsinya.
+- MaterialApp
+Digunakan sebagai root aplikasi untuk menyediakan tema dan struktur dasar UI Material Design.
+- Scaffold
+Digunakan untuk menyediakan kerangka halaman dengan AppBar dan body
+- AppBar
+Menampilkan top bar dengan judul aplikasi.
+- Padding
+Memberikan jarak di sekeliling widget.
+- Column 
+Menyusun widget secara vertikal.
+- Row
+Menyusun widget secara horizontal.
+- Card 
+Digunakan untuk menampilkan elemen card.
+- Container
+Digunakan sebagai wadah.
+- Center
+Digunakan untuk menempatkan widget di tengah.
+- GridView.count
+Digunakan untuk menampilkan daftar menu berbentuk grid.
+- Text, Icon, Material
+Digunakan untuk menampilkan ikon dan teks.
+- Inkwell
+Menambahkan efek sentuhan pada widget yg bisa ditekan.
+- SnackBar
+Digunakan untuk menampilkan notifikasi kecil di bawah.
 
 ### 3. Apa fungsi dari widget MaterialApp? Jelaskan mengapa widget ini sering digunakan sebagai widget root.
 Widget materialApp berfungsi sebagai pembungkus yang mengatur hal seperti tema warna, font, judul aplikasi, dan sistem pindah halaman. Widget ini sering digunakan sebagai widget root karena banyak widget lain yang tidak akan berfungsi dengan benar tanpa widget ini, seperti Scaffold dan SnackBar.
