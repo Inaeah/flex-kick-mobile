@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flex_kick/menu.dart';
-import 'package:flex_kick/productlist_form.dart';
+import 'package:flex_kick/screens/menu.dart';
+import 'package:flex_kick/screens/productlist_form.dart';
 
 class LeftDrawer extends StatelessWidget {
   const LeftDrawer({super.key});

@@ -1,4 +1,4 @@
-# flex_kick
+# flex_kick Mobile Vers
 
 A new Flutter project.
 
@@ -14,8 +14,6 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
-
-# Flex Kick Mobile Vers
 
 ## Tugas 7
 ### 1. Jelaskan apa itu widget tree pada Flutter dan bagaimana hubungan parent-child (induk-anak) bekerja antar widget.
@@ -61,3 +59,19 @@ BuildContext adalah objek yang merepresentasikan posisi widget dalam widget tree
 
 ### 6. Jelaskan konsep "hot reload" di Flutter dan bagaimana bedanya dengan "hot restart".
 hot reload di flutter membuat kita dapat inject perubahan kode langsung ke aplikasi yang sedang berjalan tanpa menghentikannya. Sedangkan, hot restart akan memulai ulang aplikasi dari awal dengan menghapus semua state yang aktif.
+
+## Tugas 8
+### 1. Jelaskan perbedaan antara Navigator.push() dan Navigator.pushReplacement() pada Flutter. Dalam kasus apa sebaiknya masing-masing digunakan pada aplikasi Football Shop kamu?
+Perbedaan antara Navigator.push() dengan Navigator.pushReplacement() adalah cara mereka menambahkan halaman ke stack. Pada Navigator.push(), ia menambahkan halaman baru di atas halaman sebelumnya, sehingga kita bisa kembali ke halaman sebelumnya dengan tombol back. Sedangkan Navigator.pushReplacement() mengganti halaman sekarang dengan yg baru, halaman sebelumnya dihapus dari stack jadi tidak bisa kembali ke halaman sebelumnya
+
+### 2. Bagaimana kamu memanfaatkan hierarchy widget seperti Scaffold, AppBar, dan Drawer untuk membangun struktur halaman yang konsisten di seluruh aplikasi?
+Widget seperti scaffold, appbar, dan drawer digunakan untuk membangun struktur halaman yg konsisten. Scaffold berfungsi sebagai kerangka utama yg menyediakan tempat untuk elemen standar, seperti body, appbar, dan drawer. AppBar menampilkan judul halaman dan tombol navigasi. Drawer digunakan pengguna untuk pindah antarhalaman dengan mudah. Dengan memanfaatkan hierarchy widget ini, tiap halaman punya tata letak dan navigasi yg konsisten.
+
+### 3. Dalam konteks desain antarmuka, apa kelebihan menggunakan layout widget seperti Padding, SingleChildScrollView, dan ListView saat menampilkan elemen-elemen form? Berikan contoh penggunaannya dari aplikasi kamu.
+Penggunaan layout widget seperti padding, SingleChildScrollView, dan ListView membuat tampilan form lebih rapih, responsif, dan nyaman digunakan. 
+- Padding: Memberi jarak antar elemen agar tidak langsung menempel.
+- SingleChildScrollView: Membuat seluruh form dapat discroll saat isinya panjang sehingga pengguna bisa melihat seluruh halaman.
+- ListView: Berguna saat form berisi banyak elemen dinamis karena otomatis menyediakan scroll dan mengatur posisi widget secara vertikal.
+
+### 4. Bagaimana kamu menyesuaikan warna tema agar aplikasi Football Shop memiliki identitas visual yang konsisten dengan brand toko?
+Agar aplikasi memiliki identitas visual yang konsisten dengan brand toko, FlexKick menggunakan warna yang konsisten pada setiap halaman aplikasi agar FlexKick memiliki identitas visual yang kuat.

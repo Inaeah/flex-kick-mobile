@@ -1,4 +1,4 @@
-import 'package:flex_kick/productlist_form.dart';
+import 'package:flex_kick/screens/productlist_form.dart';
 import 'package:flutter/material.dart';
 import 'package:flex_kick/widgets/left_drawer.dart';
 import 'package:flex_kick/widgets/product_card.dart';
