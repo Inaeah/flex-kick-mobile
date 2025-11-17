@@ -14,6 +14,7 @@ class MyHomePage extends StatelessWidget  {
     ItemHomepage("All Products", Icons.shop_2_rounded, Colors.blue),
     ItemHomepage("My Products", Icons.shop, const Color.fromARGB(255, 23, 197, 113)),
     ItemHomepage("Create Product", Icons.add, Colors.redAccent),
+    ItemHomepage("Logout", Icons.logout, const Color.fromARGB(255, 113, 11, 3))
   ];
 
     @override
@@ -37,8 +38,7 @@ class MyHomePage extends StatelessWidget  {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         // Menyusun widget secara vertikal dalam sebuah kolom.
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
+        child: ListView(
           children: [
             // Row untuk menampilkan 3 InfoCard secara horizontal.
             Row(
@@ -73,13 +73,14 @@ class MyHomePage extends StatelessWidget  {
 
                   // Grid untuk menampilkan ItemCard dalam bentuk grid 3 kolom.
                   GridView.count(
-                    primary: true,
+                    primary: false,
                     padding: const EdgeInsets.all(20),
                     crossAxisSpacing: 10,
                     mainAxisSpacing: 10,
-                    crossAxisCount: 3,
+                    crossAxisCount: 2,
                     // Agar grid menyesuaikan tinggi kontennya.
                     shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
 
                     // Menampilkan ItemCard untuk setiap item dalam list items.
                     children: items.map((ItemHomepage item) {

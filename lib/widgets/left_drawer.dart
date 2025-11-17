@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flex_kick/screens/menu.dart';
 import 'package:flex_kick/screens/productlist_form.dart';
+import 'package:flex_kick/screens/product_entry_list.dart';
+import 'package:flex_kick/screens/myproduct_entry_list.dart';
 
 class LeftDrawer extends StatelessWidget {
   const LeftDrawer({super.key});
@@ -49,7 +51,7 @@ class LeftDrawer extends StatelessWidget {
           ),
           
           ListTile(
-            leading: const Icon(Icons.post_add),
+            leading: const Icon(Icons.add),
             title: const Text('Add Product'),
             // Bagian redirection ke ProductFormPage
             onTap: () {
@@ -61,16 +63,31 @@ class LeftDrawer extends StatelessWidget {
             },
           ),
 
+          ListTile(
+            leading: const Icon(Icons.shop_2_rounded),
+            title: const Text('All Product'),
+            // Bagian redirection ke ProductFormPage
+            onTap: () {
+              Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ProductEntryListPage(),
+                  ));
+            },
+          ),
 
-
-
-
-
-
-
-
-
-
+          ListTile(
+            leading: const Icon(Icons.shop),
+            title: const Text('My Product'),
+            // Bagian redirection ke ProductFormPage
+            onTap: () {
+              Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => MyProductEntryListPage(),
+                  ));
+            },
+          ),
 
 
 
