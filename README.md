@@ -75,3 +75,51 @@ Penggunaan layout widget seperti padding, SingleChildScrollView, dan ListView me
 
 ### 4. Bagaimana kamu menyesuaikan warna tema agar aplikasi Football Shop memiliki identitas visual yang konsisten dengan brand toko?
 Agar aplikasi memiliki identitas visual yang konsisten dengan brand toko, FlexKick menggunakan warna yang konsisten pada setiap halaman aplikasi agar FlexKick memiliki identitas visual yang kuat.
+
+## Tugas 9
+### 1. Jelaskan mengapa kita perlu membuat model Dart saat mengambil/mengirim data JSON? Apa konsekuensinya jika langsung memetakan Map<String, dynamic> tanpa model (terkait validasi tipe, null-safety, maintainability)?
+Kita harus membuat model Dart saat mengambil data JSON karena mdoel membertikan struktur data yg jelas dan aman. Jika langsung memetakan pakai Map, tipe data tidak terjamin valid. Tanpa model, tidak ada null-safety sehingga harus mengecek manual. Model juga meningkatkan maintainability karena semua parsing terpusat.
+
+### 2. Apa fungsi package http dan CookieRequest dalam tugas ini? Jelaskan perbedaan peran http vs CookieRequest.
+- http -> Untuk mengirim/menerima data lewat HTTP (GET/POST) dan bekerja di level transport (stateless, tidak ingat login atau cookie)
+- CookieRequest -> wrapper yang sudah otomatis mengelola cookie, session, dan CSRF ke Django yang dipakai untuk login/logout, lalu setiap request berikutnya akan otomatis membawa cookie user yg login, sehingga Django tau penggunanya.
+
+### 3. Jelaskan mengapa instance CookieRequest perlu untuk dibagikan ke semua komponen di aplikasi Flutter.
+Perlu agar semua bagian aplikasi menggunakan sesi login yg sama. Ketika user login di satu halaman, halaman lain dapat langsung memakai instance yang sama dengan cookie yg sudah tersimpan. Jika setiap widget punya cookierequest baru, halaman lain akan menganggap user belum login.
+
+### 4. Jelaskan konfigurasi konektivitas yang diperlukan agar Flutter dapat berkomunikasi dengan Django. Mengapa kita perlu menambahkan 10.0.2.2 pada ALLOWED_HOSTS, mengaktifkan CORS dan pengaturan SameSite/cookie, dan menambahkan izin akses internet di Android? Apa yang akan terjadi jika konfigurasi tersebut tidak dilakukan dengan benar?
+Agar Flutter dapat terhubung dengan Django, kita perlu mengizinkan akses dari emulator melalui 10.0.2.2 di ALLOWED_HOSTS, mengaktifkan CORS, serta mengonfigurasi cookie/SameSite agar sesi login dapat disimpan dan dikirim bersama request. Selain itu, aplikasi Android juga harus diberi izin internet agar dapat melakukan HTTP request. Jika salah satu pengaturan ini tidak benar, koneksi bisa gagal karena Django menolak host yang tidak terdaftar, CORS memblokir permintaan, cookie sesi tidak terkirim sehingga pengguna selalu dianggap belum login, atau aplikasi Android tidak bisa mengakses jaringan sama sekali.
+
+### 5. Jelaskan mekanisme pengiriman data mulai dari input hingga dapat ditampilkan pada Flutter.
+Ketika user mengisi form di Flutter, data menjadi JSON dan dikirim ke server melalui HTTP (sering menggunakan CookieRequest agar sesi login ikut terkirim). Django kemudian menerima JSON-nya, mendeserialisasinya menjadi objek Python, memprosesnya ke database, lalu mengembalikan respons dalam bentuk JSON. Flutter menerima respons itu, mendeserialisasi JSON, lalu memetakannya ke model Dart agar data memiliki tipe yang aman. Setelah itu, objek model tersebut digunakan oleh widget untuk merender tampilan UI yang menampilkan data terbaru.
+
+### 6. Jelaskan mekanisme autentikasi dari login, register, hingga logout. Mulai dari input data akun pada Flutter ke Django hingga selesainya proses autentikasi oleh Django dan tampilnya menu pada Flutter.
+Pertama user mengisi form login/register Flutter, data dikirim ke endpoint Django melalui CookieRequest, Django memvaidasi data lalu mengembalikan respons dan cookie session yang disimpan oleh CookieRequest. Setiap request Flutter melampirkan Cookie sehingga Django mengenali user untuk semua halaman yag diakses. Ketika logout, Flutter memanggil endpoint logout Django, lalu Django menghapus session dan CookieRequest ikut menghapus cookie lokal sehingga user kembali ke halaman login.
+
+### 7. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step! (bukan hanya sekadar mengikuti tutorial).
+- Memastikan deployment proyek tugas Django kamu telah berjalan dengan baik.
+Mengonfigurasi Django dengan menginstal `django-cors-headers` dan mengatur variabel settings.py `CORS_ALLOW_ALL_ORIGINS = True`.
+Lalu sevelum menjalankan Flutter, jalankan aplikasi Django secara lokal agar Flutter dapat mengakses endpoint JSON-nya (seperti http://localhost:8000/json/)
+
+- Mengimplementasikan fitur registrasi akun pada proyek tugas Flutter.
+Membuat app authentication di Django dan membuat perubahan di settings.py lalu buat views untuk register dan URL routingnya. Selanjutnya, buat register.dart dan memanggil register di Django dengan `"http://localhost:8000/auth/register/"`
+
+- Membuat halaman login pada proyek tugas Flutter.
+Buat views login di authentication Django dan URL routingnya, lalu buat login.dart pada FLutter dan memanggil login di Django dengan `"http://localhost:8000/auth/login/"`
+
+- Mengintegrasikan sistem autentikasi Django dengan proyek tugas Flutter.
+Integrasi autentikasi Django dilakukan dengan membuat instance `CookieRequest` dari package `pbp_django_auth`. Instance ini dipakai untuk memanggil `request.login(url, data)` untuk mengirimkan kredensial ke endpoint Django, dan setelah itu cookie sesi akan disimpan secara otomatis sehingga status login pengguna tetap terjaga di seluruh bagian aplikasi.
+
+- Membuat model kustom sesuai dengan proyek aplikasi Django.
+Model dibuat dengan menyalin JSON produk Django lalu menggunakan Quicktype untuk membuat class Model Dart secara otomatis
+
+- Membuat halaman yang berisi daftar semua item yang terdapat pada endpoint JSON di Django yang telah kamu deploy.
+Memanggil fungsi asinkron `fetchProduct` yang melakukan permintaan request.get('.../json/') menggunakan CookieRequest, kemudian data JSON yang diterima di-decode dan dikonversi menjadi daftar objek Model Dart dan ditampilkan ke UI.
+
+- Membuat halaman detail untuk setiap item yang terdapat pada halaman daftar Item.
+Buat halaman detail baru yang menerima objek Model Dart dari item yang dipilih sebagai argumen wajib. Kemudian, pada halaman daftar item, implementasikan fungsi onTap di setiap kartu yang menggunakan Navigator.push untuk menavigasi sambil mengirimkan objek ProductEntry yang diklik ke halaman detail tersebut.
+
+- Melakukan filter pada halaman daftar item dengan hanya menampilkan item yang terasosiasi dengan pengguna yang login.
+Membuat fungsi views baru pada views.py di main untuk mengambil product yang user sama dengan request.user.
+`product_list = Product.objects.filter(user=request.user)` 
+Lalu kembalikan data dalam bentuk JSON lalu di Flutter fetchProduct.
